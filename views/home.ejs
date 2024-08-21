@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Wittgenstein&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
+    integrity="sha512-abc123...rest_of_integrity_value..."
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="img_container">
+        <div class="search-box">
+            <form id="form_container" method="post">
+                <input type="text" name="city" id="cityname"placeholder="Enter name">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        
+        
+        <%  if (weatherData && weatherData.name) { %>
+        <div class="name_container">
+            <div id="name"><%= weatherData.name %></div>
+            <% if(weatherData.weather[0].main == "Sunny") { %>
+                <i class="fa-solid fa-sun"></i>
+            <% } else if(weatherData.weather[0].main == "Clouds") { %>
+                <i class="fa-solid fa-cloud-sun"></i>
+            <% } else if(weatherData.weather[0].main == "Rainy") { %>
+                <i class="fa-solid fa-cloud-showers-heavy"></i>
+            <% } else if(weatherData.weather[0].main == "Mist") { %>
+                <i class="fa-solid fa-smog"></i>
+            <% } else { %>
+                <i class="fa-solid fa-cloud"></i>
+            <% } %>
+                
+                <%= (weatherData.main.temp-273.15).toFixed(2); %>&deg;C
+            </div>
+        </div>
+        
+        <div class="time_container">
+            <div id="time"> <%= localTime || 'Time not available'  %></div>
+            <div id="date"><%= localDate || 'Date not available'  %></div>
+        </div>
+        <div class="detail">
+            <div id="sunrise">Sunrise: <%= sunrise || 'Data not available' %></div>
+            <div id="sunset">Sunset: <%= sunset || 'Data not available'  %></div>
+            <div id="maxtemp">Max Temp: <%= (weatherData.main.temp_min-273.15).toFixed(2) %>&deg;C</div>
+            <div id="mintemp">Min temp: <%= (weatherData.main.temp_max-273.15).toFixed(2) %>&deg;C</div>
+        </div>
+        <% } else if(message) { %>
+            <div class="msg"><%= message %></div>
+        <%  } %>
+    </div>
+    
+
+</body>
+<script src="/app.js"></script>
+</html>        
